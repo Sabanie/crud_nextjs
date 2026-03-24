@@ -1,7 +1,9 @@
+import { getContacts } from "@/lib/data"
 
 
 
-function ContactTable() {
+ async function ContactTable() {
+  const contacts = await getContacts()
   return (
     <table className=" w-full text-sm text-left text-gray-500">
        <thead className=" text-sm text-gray-700 uppercase bg-gray-50">
@@ -14,13 +16,18 @@ function ContactTable() {
         </tr>
        </thead>
        <tbody>
-        <tr>
-            <td className=" py-3 px-6"></td>
-            <td className=" py-3 px-6"></td>
-            <td className=" py-3 px-6"></td>
-            <td className=" py-3 px-6"></td>
+        {
+          contacts.map((contact : any,index: number)=>(
+            <tr key={contact.id} className="bg-white border-b">
+            <td className=" py-3 px-6">{index + 1}</td>
+            <td className=" py-3 px-6">{contact.name}</td>
+            <td className=" py-3 px-6">{contact.phone}</td>
+            <td className=" py-3 px-6">{contact.createdAt.toString()}</td>
             <td ></td>
         </tr>
+          ))
+        }
+     
        </tbody>
     </table>
   )
